@@ -1,4 +1,5 @@
-export class Todo{
+export class Todo {
+    id
     description
     startTime
     endTime
@@ -7,6 +8,7 @@ export class Todo{
     isDeleted
 
     constructor({
+        id = 1,
         description,
         startTime = new Date(),
         endTime = new Date(),
@@ -14,6 +16,7 @@ export class Todo{
         status = "todo",
         isDeleted = false,
     }) {
+        this.id = id
         this.description = description
         this.startTime = startTime
         this.endTime = endTime
@@ -52,6 +55,9 @@ export class Todo{
     }) {
         if (this.isDeleted) {
             throw new Error("已刪除的待辦事項無法修改")
+        }
+        if (startTime > endTime) {
+            throw new Error("待辦事項結束時間不可早於開始時間")
         }
         this.startTime = startTime
         this.endTime = endTime
